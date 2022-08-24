@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 
 	"twitch_chat_analysis/pkg/rabbit"
@@ -22,7 +21,6 @@ type RequestBody struct {
 func SendMessageToRabbit(c *gin.Context, channel *amqp.Channel, rabbit rabbit.Rabbit, body RequestBody) {
 	var messageBody rbt.Message
 	if err := c.ShouldBindJSON(&messageBody); err != nil {
-		fmt.Println("olmadi api")
 		c.AbortWithStatus(http.StatusBadRequest)
 	}
 

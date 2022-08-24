@@ -18,7 +18,7 @@ type Message struct {
 }
 
 func NewRabbit() (*Rabbit, error) {
-	conn, err := amqp.Dial("amqp://user:password@localhost:7000")
+	conn, err := amqp.Dial("amqp://user:password@localhost:7001")
 	if err != nil {
 		return nil, err
 	}

@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"net/http"
 	"twitch_chat_analysis/pkg/api"
 	"twitch_chat_analysis/pkg/rabbit"
@@ -20,7 +19,6 @@ func NewService(rabbit rabbit.Rabbit, channel *amqp.Channel) *gin.Engine {
 	r.POST("/message", func(c *gin.Context) {
 		var requestBody api.RequestBody
 		if err := c.ShouldBindJSON(&requestBody); err != nil {
-			fmt.Println("olmadi service")
 			c.AbortWithStatus(http.StatusBadRequest)
 		}
 
