@@ -1,15 +1,25 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+ "twitch_chat_analysis/pkg/service"
+ "twitch_chat_analysis/pkg/rabbit"
+
 )
 
 func main() {
-	r := gin.Default()
 
-	r.GET("/test", func(c *gin.Context) {
-		c.JSON(200, "worked")
-	})
+	rabbit, err := rabbit.NewRabbit()
+	if err != nil {
+		panic(err)
+	}
+	defer rabbit.Conn.Close()
 
-	r.Run()
+	channel, err := rabbit.Conn.Channel()
+	if err != nil {
+		panic(err)
+	}
+
+
+	service := service.NewService(*rabbit, channel)
+	service.Run()
 }
